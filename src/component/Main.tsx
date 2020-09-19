@@ -1,11 +1,11 @@
 import React from 'react';
 import './Main.css';
-import {Line} from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import { Row, Col, Layout } from 'antd';
-import '../../node_modules/antd/dist/antd.css';
 import { yearList, colors, options, myData, myLine } from './util/constant';
 
-interface iProps {}
+interface iProps { }
 
 interface iState {
     ldbl?: Array<myLine>,
@@ -112,7 +112,7 @@ export default class Main extends React.Component<iProps, iState> {
         return (
             <Layout>
                 <Layout.Header>
-                    <div className='header'>财务分析曲线图</div>
+                    <div className='header'><Link to='/mySystem'>财务分析曲线图</Link></div>
                 </Layout.Header>
                 <Row>
                     <Col span={12}>
