@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Layout, Col, Input, Button } from 'antd';
 import './MySystem.css';
-import { myData, dataList } from './util/constant';
+import { myData, dataList, url } from './util/constant';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 
@@ -80,6 +80,17 @@ export default class MySystem extends React.Component<iprops, istate> {
     }
 
     saveClick = () => {
+        window.fetch(url + 'debt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'debt=' + JSON.stringify(this.state.myData),
+        })
+            .then(res => res.json())
+            .then(data => {
+                alert(data);
+            });
     }
 
     render() {

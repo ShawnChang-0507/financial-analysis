@@ -3,6 +3,8 @@ export const yearList = (date: Date) => {
     return [year - 6, year - 5, year - 4, year - 3, year - 2, year - 1, year];
 }
 
+export const url = 'http://localhost:3556/';
+
 export const colors = ['red', 'yellow', 'blue', 'green', 'orange'];
 
 export const options = {

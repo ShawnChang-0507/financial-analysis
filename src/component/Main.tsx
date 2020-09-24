@@ -3,7 +3,7 @@ import './Main.css';
 import { Line } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import { Row, Col, Layout } from 'antd';
-import { yearList, colors, options, myData, myLine } from './util/constant';
+import { yearList, colors, options, myData, myLine, url } from './util/constant';
 
 interface iProps { }
 
@@ -26,51 +26,55 @@ export default class Main extends React.Component<iProps, iState> {
     }
 
     componentDidMount() {
-        const data: Array<myData> = require('./../data').myData;
-        const ldbl: Array<myLine> = [];
-        const sdbl: Array<myLine> = [];
-        const xjbl: Array<myLine> = [];
-        const zcfzl: Array<myLine> = [];
-        data.forEach((element: myData, index: number) => {
-            // 计算每只stock的流动比率
-            const lLine: myLine = {
-                label: element.name,
-                borderColor: colors[index],
-                borderWidth: 1,
-                data: this.calculateResult(element, 'ldbl'),
-            }
-            // 计算每只stock的流动比率
-            const sLine: myLine = {
-                label: element.name,
-                borderColor: colors[index],
-                borderWidth: 1,
-                data: this.calculateResult(element, 'sdbl'),
-            }
-            // 计算每只stock的流动比率
-            const xLine: myLine = {
-                label: element.name,
-                borderColor: colors[index],
-                borderWidth: 1,
-                data: this.calculateResult(element, 'xjbl'),
-            }
-            // 计算每只stock的流动比率
-            const zLine: myLine = {
-                label: element.name,
-                borderColor: colors[index],
-                borderWidth: 1,
-                data: this.calculateResult(element, 'zcfzl'),
-            }
-            ldbl.push(lLine);
-            sdbl.push(sLine);
-            xjbl.push(xLine);
-            zcfzl.push(zLine);
-        });
-
-        this.setState({
-            ldbl: ldbl,
-            sdbl: sdbl,
-            xjbl: xjbl,
-            zcfzl: zcfzl,
+        window.fetch(url + 'getDebt')
+        .then(res => res.json())
+        .then(serverData => {
+            let data: Array<myData> = serverData.myData;
+            const ldbl: Array<myLine> = [];
+            const sdbl: Array<myLine> = [];
+            const xjbl: Array<myLine> = [];
+            const zcfzl: Array<myLine> = [];
+            data.forEach((element: myData, index: number) => {
+                // 计算每只stock的流动比率
+                const lLine: myLine = {
+                    label: element.name,
+                    borderColor: colors[index],
+                    borderWidth: 1,
+                    data: this.calculateResult(element, 'ldbl'),
+                }
+                // 计算每只stock的流动比率
+                const sLine: myLine = {
+                    label: element.name,
+                    borderColor: colors[index],
+                    borderWidth: 1,
+                    data: this.calculateResult(element, 'sdbl'),
+                }
+                // 计算每只stock的流动比率
+                const xLine: myLine = {
+                    label: element.name,
+                    borderColor: colors[index],
+                    borderWidth: 1,
+                    data: this.calculateResult(element, 'xjbl'),
+                }
+                // 计算每只stock的流动比率
+                const zLine: myLine = {
+                    label: element.name,
+                    borderColor: colors[index],
+                    borderWidth: 1,
+                    data: this.calculateResult(element, 'zcfzl'),
+                }
+                ldbl.push(lLine);
+                sdbl.push(sLine);
+                xjbl.push(xLine);
+                zcfzl.push(zLine);
+            });
+    
+            this.setState({
+                ldbl: ldbl,
+                sdbl: sdbl,
+                xjbl: xjbl,
+                zcfzl: zcfzl,
+            })
         })
     }
 
