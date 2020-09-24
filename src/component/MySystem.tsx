@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Layout, Col, Input, Button } from 'antd';
 import './MySystem.css';
 import { myData, dataList, url } from './util/constant';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 
 interface iprops { }
@@ -145,9 +144,7 @@ export default class MySystem extends React.Component<iprops, istate> {
                             <Col span={4}></Col>
                             <Col span={4}>
                                 <Button onClick={this.addClick}>添加</Button>
-                                <CopyToClipboard text={',' + JSON.stringify(this.state.myData)}>
-                                    <Button onClick={this.saveClick}>复制</Button>
-                                </CopyToClipboard>
+                                <Button onClick={this.saveClick}>保存</Button>
                             </Col>
                         </Row>
                     </Col>
